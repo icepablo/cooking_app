@@ -22,23 +22,33 @@ const Tab = styled.button`
 function MealsFilterTab(props) {
   const items = props.items;
   let filterData = items
+  const [showData, setshowData] = useState(items);
   const [active, setActive] = useState('danie głowne');
   const [input, setInput] = useState('');
   const types = ['danie głowne', 'zupy', 'przystawki']
+  
+    
   const handleChange = (e) => {
     e.preventDefault()
     setInput(e.target.value)
+    changeTab(active)
   }
-  if (input.length > 0){
-    filterData = items.filter((i)=>{
-      return i.name.match(input)
-    })
-  }
-  const changeTab = (type) =>{
+  
+  const changeTab = (type) => {
     setActive(type)
-    //handleChange()
-    console.log(active)
+    filterData = items.filter((i) => {
+      if (i.type_name === (active) && i.name.match(input)){
+        return i.name
+      }
+    })
+    setshowData(filterData)
   }
+  useEffect(() => {
+    console.log(`state changed to ${active,input}`);
+    
+    
+  }, [active,input]);
+
   const styles = {
     display: 'inline',
     width: '30%',
@@ -49,23 +59,23 @@ function MealsFilterTab(props) {
     marginBottom: 10,
     marginRight: 10
   }
-
+ console.log('x',showData)
   return (
     <div>
       <div style={{ margin: '0 auto', marginTop: '10%' }}>
         <label>Search:</label>
-        <input type="text" onChange={handleChange} value={input}/>
+        <input type="text" onChange={handleChange} value={input} />
       </div>
       <div>
         {types.map((type) => (
-          <Tab key={type} active={active === type} onClick={() =>changeTab(type)}>
+          <Tab key={type} active={active === type} onClick={() => changeTab(type)}>
             {type}
           </Tab>
         ))}
       </div>
 
       <div>
-        {filterData.map(item => (
+        {showData.map(item => (
           <div style={styles} key={item.id}>
 
             <Link to={`/meals/${item.id}`}>{item.name}</Link>
@@ -105,5 +115,12 @@ const [filterData, setfilterData] = useState(props.items);
        }
  
  
- 
+  if (input.length > 0) {
+    filterData = items.filter((i) => {
+      return i.name.match(input)  //>= 0 && i.type_name.match(active) >= 0
+    })
+  }
+
+
+
  */
