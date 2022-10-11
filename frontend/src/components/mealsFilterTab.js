@@ -26,28 +26,26 @@ function MealsFilterTab(props) {
   const [active, setActive] = useState('danie głowne');
   const [input, setInput] = useState('');
   const types = ['danie głowne', 'zupy', 'przystawki']
-  
-    
+
   const handleChange = (e) => {
     e.preventDefault()
     setInput(e.target.value)
     changeTab(active)
   }
-  
+
   const changeTab = (type) => {
     setActive(type)
     filterData = items.filter((i) => {
-      if (i.type_name === (active) && i.name.match(input)){
+      if (i.type_name === (active) && i.name.match(input)) {
         return i.name
       }
     })
     setshowData(filterData)
   }
+
   useEffect(() => {
-    console.log(`state changed to ${active,input}`);
-    
-    
-  }, [active,input]);
+    changeTab(active)
+  }, [active, input]);
 
   const styles = {
     display: 'inline',
@@ -59,7 +57,7 @@ function MealsFilterTab(props) {
     marginBottom: 10,
     marginRight: 10
   }
- console.log('x',showData)
+
   return (
     <div>
       <div style={{ margin: '0 auto', marginTop: '10%' }}>
