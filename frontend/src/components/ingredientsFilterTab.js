@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-ro
 import React, { useState, useEffect } from "react";
 
 function IngredientsFilterTab(props) {
-
   //wyszukaj dania zawierajace składniki
   const [filterData, setfilterData] = useState([]);
   const items = props.items;
@@ -13,7 +12,6 @@ function IngredientsFilterTab(props) {
     event.preventDefault();
     setTags([...tags, input])
     setInput('')
-    
   }
 
   const myChangeHandler = (event) => {
@@ -22,22 +20,22 @@ function IngredientsFilterTab(props) {
 
   const handleSearch = () => {
     let result = [];
-    console.log('ten kod')
     tags.map(tag => (
       result = items.filter((data) => {
-        console.log('petla')
         return data.name.search(tag) !== -1;
       })
     ))
-    setfilterData([...filterData,...result])
-    //setfilterData(prevArray => [...prevArray, result])
+    result.map(meal => (
+      (filterData.indexOf(meal) > -1) ? null :
+        setfilterData([...filterData,meal])
+    ))
   }
-//setFilterData(result)
+
   useEffect(() => {
-  console.log('tags',tags)
   handleSearch()
   setTags(tags)
   }, [tags]);
+
   const styles = {
     display: 'inline',
     width: '30%',
