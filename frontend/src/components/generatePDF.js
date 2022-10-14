@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#E4E4E4',
     fontFamily: "Roboto",
     //fontWeight: 700,
-    
+
   },
   section: {
     margin: 10,
@@ -24,37 +24,39 @@ export const styles = StyleSheet.create({
 });
 
 const Br = () => "\n";
-  
-export const MyDocument = (props) => (  
-  <Document> 
+
+export const MyDocument = (props) => (
+  <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
         <Text>
-        LISTA DAŃ
+          LISTA DAŃ<Br />
           {props.data.map((item) => (
-          <div key={item.id}>
-            <h2>
-              danie: {item.name} <Br/> ilość porcji: {item.value}  <Br/>
-            </h2>
-            skladniki:<Br/>
+            <div key={item.id}>
+              {console.log('item', item)}
+              <h2>
+                <Text> danie: {item.name} <Br /> ilość porcji: {item.value}  <Br /></Text>
+
+              </h2>
+              <Text>skladniki:<Br /></Text>
               <View>
-              <Text>{item.amount.map((val) => val.ingredient_name + " " + val.amount * item.value+ "g\n")}</Text> 
-               </View>
-          </div>
-        ))}
+                <Text>{item.amount.map((val) => val.ingredient_name + " " + val.amount * item.value + "g\n")}</Text>
+              </View>
+            </div>
+          ))}
         </Text>
       </View>
     </Page>
   </Document>
-);  
+);
 
-export const ShoppingList = (props) => (  
-  <Document>  
+export const ShoppingList = (props) => (
+  <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
         <Text>
-        LISTA ZAKUPÓW: <Br/>
-        {groupIngredients(props)}
+          LISTA ZAKUPÓW: <Br />
+          {groupIngredients(props)}
         </Text>
       </View>
     </Page>
@@ -68,42 +70,42 @@ const generatePdfDocument = async (fileName, pdfDocumentComponent) => {
 
 export const DownloadButton = (props) => (
   <button
-      type="button"
-      onClick={() => {
-          generatePdfDocument('Lista_składników.pdf', <MyDocument data={props.data}/>);
-      }}
+    type="button"
+    onClick={() => {
+      generatePdfDocument('Lista_składników.pdf', <MyDocument data={props.data} />);
+    }}
   >
-      Pobierz liste składników
+    Pobierz liste składników
   </button>
 );
 
 export const DownloadButton2 = (props) => (
   <button
-      type="button"
-      onClick={() => {
-          generatePdfDocument('Lista_zakupów.pdf', <ShoppingList data={props.data}/>);
-      }}
+    type="button"
+    onClick={() => {
+      generatePdfDocument('Lista_zakupów.pdf', <ShoppingList data={props.data} />);
+    }}
   >
-      Pobierz liste zakupów
+    Pobierz liste zakupów
   </button>
 );
 
-function groupIngredients  (props) {
+function groupIngredients(props) {
   var ingredientsArray = []
   var amountArray = []
-  props.data.map((item) => item.amount.map((val) =>  ingredientsArray.indexOf(val.ingredient_name) > -1 ?
-  amountArray[ingredientsArray.indexOf(val.ingredient_name)] = amountArray[ingredientsArray.indexOf(val.ingredient_name)] + (val.amount * item.value)
-  : (ingredientsArray.push(val.ingredient_name),amountArray.push(val.amount * item.value))
-  
-))
+  props.data.map((item) => item.amount.map((val) => ingredientsArray.indexOf(val.ingredient_name) > -1 ?
+    amountArray[ingredientsArray.indexOf(val.ingredient_name)] = amountArray[ingredientsArray.indexOf(val.ingredient_name)] + (val.amount * item.value)
+    : (ingredientsArray.push(val.ingredient_name), amountArray.push(val.amount * item.value))
 
-const groupArray = []
-ingredientsArray.forEach((element, index) => {
-  groupArray.push([ingredientsArray[index]+ ' ' +amountArray[index]+ 'g' + '\n'])
-  
-})
+  ))
 
-return <div>{groupArray}</div>
+  const groupArray = []
+  ingredientsArray.forEach((element, index) => {
+    groupArray.push([ingredientsArray[index] + ' ' + amountArray[index] + 'g' + '\n'])
+
+  })
+
+  return groupArray
 }
 
 export default MyDocument;

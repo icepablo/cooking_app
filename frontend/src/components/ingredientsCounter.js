@@ -57,7 +57,6 @@ function IngredientsCounter(props) {
       <Link to={{ pathname: '/meals/summary' }}>Wszystkie składniki</Link>
     </div>
   )
-
 }
 
 export default IngredientsCounter;

@@ -8,13 +8,13 @@ function IngredientsFilterTab(props) {
   const [tags, setTags] = useState([]);
   const [input, setInput] = useState('');
 
-  const mySubmitHandler = (event) => {
+  const submitHandler = (event) => {
     event.preventDefault();
     setTags([...tags, input])
     setInput('')
   }
 
-  const myChangeHandler = (event) => {
+  const changeHandler = (event) => {
     setInput(event.target.value);
   }
 
@@ -27,13 +27,13 @@ function IngredientsFilterTab(props) {
     ))
     result.map(meal => (
       (filterData.indexOf(meal) > -1) ? null :
-        setfilterData([...filterData,meal])
+        setfilterData(prevState => ([...prevState, meal]))
     ))
   }
 
   useEffect(() => {
-  handleSearch()
-  setTags(tags)
+    handleSearch()
+    setTags(tags)
   }, [tags]);
 
   const styles = {
@@ -50,7 +50,7 @@ function IngredientsFilterTab(props) {
     return null
   return (
     <div>
-      <form onSubmit={mySubmitHandler}>
+      <form onSubmit={submitHandler}>
         <h1>Składniki:
           {tags.map(item => (
             <div style={styles}>
@@ -61,7 +61,7 @@ function IngredientsFilterTab(props) {
         <p>Dodaj składniki:</p>
         <input
           type='text'
-          onChange={myChangeHandler}
+          onChange={changeHandler}
           value={input}
         />
         <input
