@@ -31,17 +31,17 @@ export const MyDocument = (props) => (
       <View style={styles.section}>
         <Text>
           LISTA DAŃ<Br />
+          <Br />
           {props.data.map((item) => (
             <div key={item.id}>
-              {console.log('item', item)}
-              <h2>
-                <Text> danie: {item.name} <Br /> ilość porcji: {item.value}  <Br /></Text>
-
-              </h2>
-              <Text>skladniki:<Br /></Text>
-              <View>
-                <Text>{item.amount.map((val) => val.ingredient_name + " " + val.amount * item.value + "g\n")}</Text>
+              <View style={{ fontSize: 22, fontWeight:800 }}>
+                <Text> danie: {item.name} <Br /></Text>
               </View>
+              <Text>
+                ilość porcji: {item.value} <Br />
+                skladniki:<Br />
+                {item.amount.map((val) => val.ingredient_name + " " + val.amount * item.value + "g\n")}<Br />
+              </Text>
             </div>
           ))}
         </Text>

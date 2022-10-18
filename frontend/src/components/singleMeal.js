@@ -6,7 +6,6 @@ import IngredientsCounter from "./ingredientsCounter";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
-//const { id } = useParams();
 const Container = styled.div`
 border-color: red;
 `

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getAll } from "../helpers/showAllPosts";
 import MealsFilterTab from "./mealsFilterTab";
 import IngredientsFilterTab from "./ingredientsFilterTab";
+import MainTab from "./mainTab";
 import { Container, Col, Row, Image, Tab, Tabs } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 
@@ -24,7 +25,10 @@ function HomePage(props) {
   return (
     <div className="App">
       <div>
-        <Tabs defaultActiveKey="zdjęcia" id="uncontrolled-tab-example" className="mb-3">
+        <Tabs defaultActiveKey="main" id="uncontrolled-tab-example" className="mb-3">
+        <Tab eventKey="main" title="Cooking Helper">
+            <MainTab/>
+          </Tab>
           <Tab eventKey="dania" title="Dania">
             <MealsFilterTab
               items={items}

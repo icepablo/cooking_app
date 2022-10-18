@@ -21,7 +21,7 @@ const Tab = styled.button`
 
 function MealsFilterTab(props) {
   const items = props.items;
-  let filterData = items
+  let filterData = []
   const [showData, setshowData] = useState(items);
   const [active, setActive] = useState('danie głowne');
   const [input, setInput] = useState('');
@@ -83,8 +83,6 @@ function MealsFilterTab(props) {
     </div>
   )
 }
-
-
 
 export default MealsFilterTab;
 

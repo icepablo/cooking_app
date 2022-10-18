@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom'
 import React, { useState, useEffect } from "react";
 
+
 function IngredientsFilterTab(props) {
   //wyszukaj dania zawierajace składniki
   const [filterData, setfilterData] = useState([]);
@@ -10,8 +11,10 @@ function IngredientsFilterTab(props) {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    setTags([...tags, input])
-    setInput('')
+    if (tags.indexOf(input) < 0) {
+      setTags([...tags, input])
+    }
+    setInput('');
   }
 
   const changeHandler = (event) => {
@@ -19,22 +22,30 @@ function IngredientsFilterTab(props) {
   }
 
   const handleSearch = () => {
-    let result = [];
+    let tagResult = [];
+    let finalResult = []
     tags.map(tag => (
-      result = items.filter((data) => {
+      tagResult = items.filter((data) => {
         return data.name.search(tag) !== -1;
-      })
+      }),
+      tagResult.map(meal => (
+        (finalResult.indexOf(meal) > -1) ? null :
+          finalResult.push(...tagResult)
+      ))
     ))
-    result.map(meal => (
-      (filterData.indexOf(meal) > -1) ? null :
-        setfilterData(prevState => ([...prevState, meal]))
-    ))
+    setfilterData(finalResult)
   }
+
+  const removeTag = (tag) => {
+    setTags((prevState) =>
+      prevState.filter((prevItem) => prevItem !== tag)
+    );
+  };
 
   useEffect(() => {
     handleSearch()
-    setTags(tags)
   }, [tags]);
+
 
   const styles = {
     display: 'inline',
@@ -52,9 +63,10 @@ function IngredientsFilterTab(props) {
     <div>
       <form onSubmit={submitHandler}>
         <h1>Składniki:
-          {tags.map(item => (
+          {tags.map(tag => (
             <div style={styles}>
-              {item}
+              {tag}
+              <button type='button' onClick={() => removeTag(tag)}>x</button>
             </div>
           ))}
         </h1>
@@ -71,7 +83,6 @@ function IngredientsFilterTab(props) {
       <div>
         dania zawierające składniki:
         {filterData.map(item => (
-
           <div style={styles}>
             <Link to={`/meals/${item.id}`}>{item.name}</Link>
           </div>
@@ -84,6 +95,12 @@ function IngredientsFilterTab(props) {
 export default IngredientsFilterTab;
 
 /*
+result2.map(meal => (
+        (filterData.indexOf(meal) > -1) ? null :
+          setfilterData(prevState => ([...prevState, meal]))
+      ))
+
+
 result.map(meal => (
       (filterData.indexOf(meal) > -1) ? null :
         setfilterData([meal])
