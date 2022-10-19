@@ -2,9 +2,9 @@ import React from "react";
 
 
 function MainTab(props) {
- 
+
   return (
-   <div>hi</div>
+    <div>hi</div>
   )
 }
 

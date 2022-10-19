@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DownloadButton, DownloadButton2 } from './generatePDF'
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom'
+import Navbar from "./NavBar";
 
 function MealsSummary(props) {
 
@@ -39,10 +40,10 @@ function MealsSummary(props) {
     localStorage.setItem("itemsArray", JSON.stringify(data));
   }
 
-
   if (summary === null) return <div>Brak przepisów</div>;
   return (
     <div>
+      <Navbar/>
       {summary.map((item) => (
         <div key={item.id}>
           <h2>
@@ -71,8 +72,3 @@ function MealsSummary(props) {
 
 export default MealsSummary;
 
-
-
-/*
-
-              */

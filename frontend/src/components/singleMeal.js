@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import IngredientsCounter from "./ingredientsCounter";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import Navbar from "./NavBar";
 
 const Container = styled.div`
 border-color: red;
@@ -67,6 +68,7 @@ function SingleMeal(props) {
 
   return (
     <Container>
+      <Navbar/>
       <Block1>
         <SubBlock>
           <Image style={{ alignSelf: "center" }} src={item.photo} alt={item.name}></Image>

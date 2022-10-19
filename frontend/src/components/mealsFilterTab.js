@@ -60,7 +60,7 @@ function MealsFilterTab(props) {
 
   return (
     <div>
-      <div style={{ margin: '0 auto', marginTop: '10%' }}>
+      <div style={{    }}>
         <label>Search:</label>
         <input type="text" onChange={handleChange} value={input} />
       </div>
