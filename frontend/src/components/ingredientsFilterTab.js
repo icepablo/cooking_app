@@ -30,7 +30,7 @@ function IngredientsFilterTab(props) {
       }),
       tagResult.map(meal => (
         (finalResult.indexOf(meal) > -1) ? null :
-          finalResult.push(...tagResult)
+          finalResult.push(meal)
       ))
     ))
     setfilterData(finalResult)
@@ -46,7 +46,6 @@ function IngredientsFilterTab(props) {
     handleSearch()
   }, [tags]);
 
-
   const styles = {
     display: 'inline',
     width: '30%',
@@ -61,28 +60,25 @@ function IngredientsFilterTab(props) {
     return null
   return (
     <div>
+      <p>Dodaj składnik</p>
       <form onSubmit={submitHandler}>
-        <h1>Składniki:
-          {tags.map(tag => (
-            <div style={styles}>
-              {tag}
-              <button type='button' onClick={() => removeTag(tag)}>x</button>
-            </div>
-          ))}
-        </h1>
-        <p>Dodaj składniki:</p>
         <input
           type='text'
           onChange={changeHandler}
           value={input}
         />
-        <input
-          type='submit'
-        />
+        <button type="submit" disabled={!input}>Dodaj</button>
       </form>
-      <div>
-        dania zawierające składniki:
-        {filterData.map(item => (
+      <h1>Składniki:</h1>
+      {tags.map(tag => (
+        <div style={styles}>
+          {tag}
+          <button type='button' onClick={() => removeTag(tag)}>x</button>
+        </div>
+      ))}
+      <p style={{ float: "left", clear: "left" }}>dania zawierające składniki:</p>
+      <div style={{ clear: "left" }}>
+        {filterData.map(item => (   
           <div style={styles}>
             <Link to={`/meals/${item.id}`}>{item.name}</Link>
           </div>

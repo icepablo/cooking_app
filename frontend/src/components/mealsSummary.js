@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { DownloadButton, DownloadButton2 } from './generatePDF'
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom'
 import Navbar from "./NavBar";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid, regular, brands, icon } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
 
 function MealsSummary(props) {
 
@@ -40,12 +42,27 @@ function MealsSummary(props) {
     localStorage.setItem("itemsArray", JSON.stringify(data));
   }
 
+  const styles = {
+    display: 'inline',
+    width: '30%',
+    height: 250,
+    float: 'left',
+    padding: 5,
+    border: '0.5px solid black',
+    marginBottom: 10,
+    marginRight: 10,
+    marginLeft: 50,
+    clear: "left" 
+  }
+
+  const Br = () => "\n";
+
   if (summary === null) return <div>Brak przepisów</div>;
   return (
     <div>
       <Navbar/>
       {summary.map((item) => (
-        <div key={item.id}>
+        <div style={styles} key={item.id}>
           <h2>
             danie:
             <Link to={`/meals/${item.id}`}>{item.name}</Link>
@@ -53,15 +70,18 @@ function MealsSummary(props) {
             ilość porcji: {item.value}
             <button onClick={() => handleChangeValue(item.id,'add')}>+</button>
           </h2>
-          skladniki na porcje: {item.amount.map((val) => val.ingredient_name + val.amount + "g" + "\n")}
+          skladniki na porcje: {item.amount.map((val) => <li> {val.ingredient_name + ' ' + val.amount + "g" + "\n"} </li>)}
           <button onClick={() => handleDelete(item.id)}>
+          <FontAwesomeIcon icon={solid("delete-left")} />
             delete item
           </button>
         </div>
       ))}
       {showPdf ?
         <div>
-          <button onClick={() => handleDeleteAll()}>delete all</button>
+          <button onClick={() => handleDeleteAll()}>
+          <FontAwesomeIcon icon={solid("trash-can")} />
+            delete all</button>
         </div>
         : <div>Brak przepisów</div>}
       <DownloadButton data={summary} />

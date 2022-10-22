@@ -1,6 +1,8 @@
 import { Document, Page, Text, View, StyleSheet, Font } from '@react-pdf/renderer';
 import { saveAs } from 'file-saver';
 import { pdf } from '@react-pdf/renderer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { solid, regular, brands, icon } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
 
 Font.register({
   family: "Roboto",
@@ -34,7 +36,7 @@ export const MyDocument = (props) => (
           <Br />
           {props.data.map((item) => (
             <div key={item.id}>
-              <View style={{ fontSize: 22, fontWeight:800 }}>
+              <View style={{ fontSize: 22, fontWeight: 800 }}>
                 <Text> danie: {item.name} <Br /></Text>
               </View>
               <Text>
@@ -75,6 +77,7 @@ export const DownloadButton = (props) => (
       generatePdfDocument('Lista_składników.pdf', <MyDocument data={props.data} />);
     }}
   >
+    <FontAwesomeIcon icon={solid("book")} />
     Pobierz liste składników
   </button>
 );
@@ -86,6 +89,7 @@ export const DownloadButton2 = (props) => (
       generatePdfDocument('Lista_zakupów.pdf', <ShoppingList data={props.data} />);
     }}
   >
+    <FontAwesomeIcon icon={solid('cart-arrow-down')} />
     Pobierz liste zakupów
   </button>
 );
