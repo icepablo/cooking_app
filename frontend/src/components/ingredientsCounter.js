@@ -42,17 +42,16 @@ function IngredientsCounter(props) {
     oldItems.push({ id, value, name, ingredients, amount });
     localStorage.setItem('itemsArray', JSON.stringify(oldItems));
   };
-
+  const Br = () => "\n";
   return (
     <div >
-      skladniki dla {value} osób :
-      <Block><Thindiv>{amount.map(val => (val.amount + 'g ' + val.ingredient_name + '\n'))}</Thindiv></Block>
+      <h2>Przelicz składniki na ilość porcji</h2>
+      <Block><Thindiv>skladniki dla {value} osób : <Br/>{amount.map(val => (val.amount * value + 'g ' + val.ingredient_name + '\n'))}</Thindiv></Block>
       <Block2><Thindiv> x</Thindiv></Block2>
+     Porcje:
+     <input type="number" value={value} onChange={handleChange} style={{width:50}}/>
       <form onSubmit={handleSubmit} >
-        <label>
-          <input type="number" value={value} onChange={handleChange} />
-        </label>
-        <input type="submit" value="Wyślij" />
+        <input type="submit" value="Dodaj do dań" />
       </form>
       <Link to={{ pathname: '/meals/summary' }}>Wszystkie składniki</Link>
     </div>

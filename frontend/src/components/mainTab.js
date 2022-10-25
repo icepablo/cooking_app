@@ -1,7 +1,11 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { solid, regular, brands, icon } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
 
+/*
+<FontAwesomeIcon icon={solid('user-secret')} className='size:lg'/>
+      <FontAwesomeIcon icon={solid("cart-arrow-down")} />
+      <FontAwesomeIcon icon={solid("book")} shake style={{ fontSize: 25 }}/>
+*/
 
 function MainTab(props) {
   const Br = () => "\n";
@@ -12,9 +16,13 @@ function MainTab(props) {
       - zapisywanie w pdf dań z potrzebną liczbą składników<Br />
       - zapisywanie w pdf zgupowanych składników w formie listy zakupów
       
-      <FontAwesomeIcon icon={solid('user-secret')} className='size:lg'/>
-      <FontAwesomeIcon icon={solid("cart-arrow-down")} />
-      <FontAwesomeIcon icon={solid("book")} shake style={{ fontSize: 25 }}/>
+      <div>
+    <FontAwesomeIcon icon=" fa-check-square"  />
+    Your <FontAwesomeIcon icon=" fa-coffee" /> is hot!
+
+    Compliments of the <FontAwesomeIcon icon="fa-carrot" />!
+  </div>
+      
 
       
     </div>

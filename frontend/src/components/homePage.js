@@ -6,10 +6,6 @@ import MainTab from "./mainTab";
 import { Container, Col, Row, Image, Tab, Tabs } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 import Navbar from "./NavBar";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { solid, regular, brands, icon } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
-
-<FontAwesomeIcon icon={solid("carrot")} />
 
 function HomePage(props) {
   const [items, setItems] = useState();

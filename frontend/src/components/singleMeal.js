@@ -6,16 +6,18 @@ import IngredientsCounter from "./ingredientsCounter";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import Navbar from "./NavBar";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Container = styled.div`
 border-color: red;
 `
 const Header = styled.h1`
 color: blue;
-display: none;
 `
+//display: none;
+
 const Block1 = styled.div`
-    width: 50%;
+    width: 35%;
     float: left;
     height:100%;
     display:inline-block;
@@ -23,7 +25,7 @@ const Block1 = styled.div`
     padding:15;
 `
 const Block2 = styled.div`
-    width: 50%;
+    width: 65%;
     float: rigth;
     height:100%;
     display:inline-block;
@@ -45,6 +47,23 @@ const SubBlock = styled.div`
     width: 100%;
     
 `
+
+const PhotoBlock = styled.div`
+    width: 600px;
+    height: 850px;
+    border:1px solid;
+    border-color:red;
+    margin:5px;
+    background:#F8F8FF;
+    border-radius: 5px;
+    text-align:center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    
+`
+
 const Thindiv = styled.div`
 white-space: pre-line;
 `
@@ -65,13 +84,18 @@ function SingleMeal(props) {
 
   if (!isLoaded)
     return <div>Loading...</div>;
-
+  
   return (
     <Container>
-      <Navbar/>
+      <Navbar />
       <Block1>
         <SubBlock>
-          <Image style={{ alignSelf: "center" }} src={item.photo} alt={item.name}></Image>
+          <Header>{item.name}</Header>
+          <p style={{whiteSpace: 'pre-line'}}>składniki:  
+          {item.amount.map(val => <div><FontAwesomeIcon icon=" fa-carrot" />{
+            val.amount + 'g ' + val.ingredient_name + '\n'}</div>)}
+          
+          </p>
         </SubBlock>
         <SubBlock>
           <IngredientsCounter
@@ -84,14 +108,13 @@ function SingleMeal(props) {
       </Block1>
       <Block2>
         <div>
-          <SubBlock>
-            <Header>{item.name}</Header>
-            <p>przepis: {item.recipe}</p>
-          </SubBlock>
+          <PhotoBlock>
+            <Image style={{ alignSelf: "center" }} src={item.photo} alt={item.name}></Image>
+          </PhotoBlock>
         </div>
         <div>
           <SubBlock>
-            <p>składniki: {item.ingredients}</p>
+            <p>przepis: {item.recipe}</p>
           </SubBlock>
         </div>
       </Block2>

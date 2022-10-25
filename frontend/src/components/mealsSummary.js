@@ -3,13 +3,12 @@ import { DownloadButton, DownloadButton2 } from './generatePDF'
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom'
 import Navbar from "./NavBar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { solid, regular, brands, icon } from '@fortawesome/fontawesome-svg-core/import.macro' // <-- import styles to be used
 
 function MealsSummary(props) {
 
   const [summary, setSummary] = useState(JSON.parse(localStorage.getItem("itemsArray")))
   const [showPdf, setShowPdf] = useState(true)
-  
+
   const handleDelete = (id) => {
     var data = JSON.parse(localStorage.getItem("itemsArray"));
     const index = data.findIndex((x) => x.id === id);
@@ -32,11 +31,11 @@ function MealsSummary(props) {
     setShowPdf(!showPdf)
   }
 
-  const handleChangeValue = (id,operation) => {
+  const handleChangeValue = (id, operation) => {
     var data = JSON.parse(localStorage.getItem("itemsArray"));
     const index = data.findIndex((x) => x.id === id);
-    var  value = parseInt(data[index].value);
-    (operation ==='add')? data[index].value=value+1 : data[index].value=value-1;
+    var value = parseInt(data[index].value);
+    (operation === 'add') ? data[index].value = value + 1 : data[index].value = value - 1;
     data = data.filter(Boolean);
     setSummary(data)
     localStorage.setItem("itemsArray", JSON.stringify(data));
@@ -52,7 +51,7 @@ function MealsSummary(props) {
     marginBottom: 10,
     marginRight: 10,
     marginLeft: 50,
-    clear: "left" 
+    clear: "left"
   }
 
   const Br = () => "\n";
@@ -60,27 +59,28 @@ function MealsSummary(props) {
   if (summary === null) return <div>Brak przepisów</div>;
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       {summary.map((item) => (
         <div style={styles} key={item.id}>
           <h2>
-            danie:
             <Link to={`/meals/${item.id}`}>{item.name}</Link>
-            <button onClick={() => handleChangeValue(item.id,'substract')}>-</button>
-            ilość porcji: {item.value}
-            <button onClick={() => handleChangeValue(item.id,'add')}>+</button>
           </h2>
-          skladniki na porcje: {item.amount.map((val) => <li> {val.ingredient_name + ' ' + val.amount + "g" + "\n"} </li>)}
-          <button onClick={() => handleDelete(item.id)}>
-          <FontAwesomeIcon icon={solid("delete-left")} />
-            delete item
-          </button>
+          skladniki na porcje: {item.amount.map((val) => <div> <FontAwesomeIcon icon=" fa-carrot" /> {val.ingredient_name + ' ' + val.amount + "g" + "\n"} </div>)}
+          <h6>
+            <button onClick={() => handleDelete(item.id)}>
+              <FontAwesomeIcon icon={"fa-delete-left"} />
+              delete item
+            </button>
+            <button onClick={() => handleChangeValue(item.id, 'substract')}>-</button>
+            ilość porcji: {item.value}
+            <button onClick={() => handleChangeValue(item.id, 'add')}>+</button>
+          </h6>
         </div>
       ))}
       {showPdf ?
         <div>
           <button onClick={() => handleDeleteAll()}>
-          <FontAwesomeIcon icon={solid("trash-can")} />
+            <FontAwesomeIcon icon={"fa-trash-can"} />
             delete all</button>
         </div>
         : <div>Brak przepisów</div>}
