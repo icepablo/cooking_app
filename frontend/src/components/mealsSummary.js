@@ -3,11 +3,19 @@ import { DownloadButton, DownloadButton2 } from './generatePDF'
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom'
 import Navbar from "./NavBar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Pagination from './pagination';
 
 function MealsSummary(props) {
 
   const [summary, setSummary] = useState(JSON.parse(localStorage.getItem("itemsArray")))
   const [showPdf, setShowPdf] = useState(true)
+  const [posts, setPosts] = summary
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(4);
+
+  console.log('summary type:',typeof(summary))
+  console.log('summary:',posts)
 
   const handleDelete = (id) => {
     var data = JSON.parse(localStorage.getItem("itemsArray"));
@@ -43,24 +51,37 @@ function MealsSummary(props) {
 
   const styles = {
     display: 'inline',
-    width: '30%',
-    height: 250,
+    minWidth: '20%',
+    minHeight: 200,
     float: 'left',
     padding: 5,
     border: '0.5px solid black',
     marginBottom: 10,
     marginRight: 10,
     marginLeft: 50,
-    clear: "left"
+    clear: "left",
+    background: 'black',
+    opacity: 0.7,
+    
   }
 
   const Br = () => "\n";
+
+   // Get current posts
+   const indexOfLastPost = currentPage * postsPerPage;
+   const indexOfFirstPost = indexOfLastPost - postsPerPage;
+   const currentPosts = summary.slice(indexOfFirstPost, indexOfLastPost);
+ 
+   // Change page
+   const paginate = pageNumber => setCurrentPage(pageNumber);
+//<Posts posts={currentPosts} loading={loading} />
+
 
   if (summary === null) return <div>Brak przepisów</div>;
   return (
     <div>
       <Navbar />
-      {summary.map((item) => (
+      {currentPosts.map((item) => (
         <div style={styles} key={item.id}>
           <h2>
             <Link to={`/meals/${item.id}`}>{item.name}</Link>
@@ -77,6 +98,11 @@ function MealsSummary(props) {
           </h6>
         </div>
       ))}
+      <Pagination
+        postsPerPage={postsPerPage}
+        totalPosts={summary.length}
+        paginate={paginate}
+      />
       {showPdf ?
         <div>
           <button onClick={() => handleDeleteAll()}>

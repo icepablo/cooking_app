@@ -3,24 +3,27 @@ import { Button, Container, Col, Row, Image } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import React, { useState, useEffect } from "react";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Block = styled.div`
 float: right;
+width: 50%;
+white-space: pre-line;
 `
 const Block2 = styled.div`
 float: left;
+width: 50%;
 `
 const Thindiv = styled.div`
 white-space: pre-line;
 `
 
 function IngredientsCounter(props) {
-  const [id, setId] = useState(props.id)
+  const id = props.id
   const [value, setValue] = useState(2)
-  const [name, setName] = useState(props.name)
-  const [ingredients, setIngredients] = useState(props.ingredients)
-  const [amount, setAmount] = useState(props.amount)
+  const name = props.name
+  const ingredients = props.ingredients
+  const amount = props.amount
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -45,11 +48,13 @@ function IngredientsCounter(props) {
   const Br = () => "\n";
   return (
     <div >
-      <h2>Przelicz składniki na ilość porcji</h2>
-      <Block><Thindiv>skladniki dla {value} osób : <Br/>{amount.map(val => (val.amount * value + 'g ' + val.ingredient_name + '\n'))}</Thindiv></Block>
-      <Block2><Thindiv> x</Thindiv></Block2>
-     Porcje:
-     <input type="number" value={value} onChange={handleChange} style={{width:50}}/>
+      <h2 style={{ float: "up" }}>Przelicz składniki na ilość porcji</h2>
+      <Block>skladniki dla {value} osób : <Br />{amount.map((val) => <div> <FontAwesomeIcon icon=" fa-carrot" /> 
+      {val.ingredient_name + ' ' + val.amount * value + "g" + "\n"} </div>)}
+      </Block>
+      <Block2></Block2>
+      Porcje:
+      <input type="number" value={value} onChange={handleChange} style={{ width: 50 }} />
       <form onSubmit={handleSubmit} >
         <input type="submit" value="Dodaj do dań" />
       </form>

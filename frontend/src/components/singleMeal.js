@@ -9,32 +9,23 @@ import Navbar from "./NavBar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Container = styled.div`
-border-color: red;
+border:1px solid;
+border-color:grey;
+max-width:1920px;
+ 
+  gap 1em;  
+
+}
 `
 const Header = styled.h1`
 color: blue;
 `
 //display: none;
 
-const Block1 = styled.div`
-    width: 35%;
-    float: left;
-    height:100%;
-    display:inline-block;
-    margin:0;
-    padding:15;
-`
-const Block2 = styled.div`
-    width: 65%;
-    float: rigth;
-    height:100%;
-    display:inline-block;
-    margin:0;
-    padding:0;
-`
 const SubBlock = styled.div`
-    width: 600px;
-    height: 500px;
+className: 'columns',
+    max-width: 600px;
+    height: 425px;
     border:1px solid;
     border-color:red;
     margin:5px;
@@ -43,13 +34,28 @@ const SubBlock = styled.div`
     text-align:center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     width: 100%;
     
 `
-
+const SubBlock2 = styled.div`
+  
+    max-width: 600px;
+    min-width: 600px;
+    height: 425px;
+    border:1px solid;
+    border-color:red;
+    margin:5px;
+    background:#F8F8FF;
+    border-radius: 5px;
+    text-align:center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+`
 const PhotoBlock = styled.div`
-    width: 600px;
+    max-width: 600px;
+    min-width: 600px;
     height: 850px;
     border:1px solid;
     border-color:red;
@@ -60,7 +66,7 @@ const PhotoBlock = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 100%;
+  
     
 `
 
@@ -86,9 +92,11 @@ function SingleMeal(props) {
     return <div>Loading...</div>;
   
   return (
+    <div>
+    <Navbar />
     <Container>
-      <Navbar />
-      <Block1>
+      
+      
         <SubBlock>
           <Header>{item.name}</Header>
           <p style={{whiteSpace: 'pre-line'}}>składniki:  
@@ -105,21 +113,41 @@ function SingleMeal(props) {
             amount={item.amount}
           />
         </SubBlock>
-      </Block1>
-      <Block2>
+      
+      
         <div>
           <PhotoBlock>
             <Image style={{ alignSelf: "center" }} src={item.photo} alt={item.name}></Image>
           </PhotoBlock>
         </div>
         <div>
-          <SubBlock>
+          <SubBlock2>
             <p>przepis: {item.recipe}</p>
-          </SubBlock>
+          </SubBlock2>
         </div>
-      </Block2>
+      
     </Container>
+    </div>
   );
 
 }
 export default SingleMeal;
+
+/*
+const SubBlock = styled.div`
+    width: 600px;
+    height: 500px;
+    border:1px solid;
+    border-color:red;
+    margin:5px;
+    background:#F8F8FF;
+    border-radius: 5px;
+    text-align:center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    
+`
+
+*/

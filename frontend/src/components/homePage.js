@@ -23,8 +23,13 @@ function HomePage(props) {
   if (!isLoaded)
     return <div>Loading...</div>;
 
+    const styles = {
+     backgroundImage : ' backgroundImage: `url("https://via.placeholder.com/500")` '
+    }
+  
+
   return (
-    <div className="App">
+    <div className="homePage" >
       <Navbar/>
       <div>
         <Tabs defaultActiveKey="main" id="uncontrolled-tab-example" className="mb-3">

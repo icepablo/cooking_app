@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./Navbar.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-
 //<FontAwesomeIcon icon="fa-solid fa-utensils" />
 //           <FontAwesomeIcon icon="fa-solid fa-bowl-rice" />
 

@@ -49,13 +49,14 @@ function MealsFilterTab(props) {
 
   const styles = {
     display: 'inline',
-    width: '30%',
+    width: '20%',
     height: 50,
     float: 'left',
     padding: 5,
-    border: '0.5px solid black',
     marginBottom: 10,
-    marginRight: 10
+    marginRight: 10,
+    background: 'black',
+    opacity: 0.7,
   }
 
   return (
